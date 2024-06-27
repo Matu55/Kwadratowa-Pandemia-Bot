@@ -9,9 +9,9 @@ app.get("/", (req, res) => {
   res.send("Hello World! I'm info bot made for Kwadratowa Pandemia");
 });
 
-const Discord = require("discord.js");
+const { Client, GatewayIntentBits, Partials } = require('discord.js');
 
-const client = new Discord.Client({ intents: [ GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages ]})
+const client = new Client({ intents: [ GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages ]})
 const commands = require("./commands.js")
 
 const adminChannelID = process.env['adminChannelID'];

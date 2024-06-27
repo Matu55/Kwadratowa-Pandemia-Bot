@@ -45,6 +45,7 @@ const slashRegister = async () => {
                     return option
                     .setName('user')
                     .setDescription('Wybierz użytkownika który został zbanowany')
+                    .setRequired(true)
                 })
                 .addStringOption(option => {
                     return option
@@ -74,6 +75,7 @@ const slashRegister = async () => {
                     return option
                     .setName('user')
                     .setDescription('Wybierz użytkownika który został zbanowany')
+                    .setRequired(true)
                 })
                 .addStringOption(option => {
                     return option

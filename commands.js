@@ -1,10 +1,12 @@
-const { REST, Routes, SlashCommandBuilder } = require("discord.js")
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v10');
+const { SlashCommandBuilder } = require('discord.js');
 
 const botID = process.env['botID'];
 const serverID = process.env['serverID'];
 const botToken = process.env['token'];
 
-const rest = new REST().setToken(botToken);
+const rest = new REST({ version: '10' }).setToken(botToken);
 const slashRegister = async () => {
     try {
         console.log("Próbowanie utworzenia komend!");

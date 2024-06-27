@@ -19,13 +19,13 @@ const slashRegister = async () => {
                 .setDescription('Wyślij wiadomość na kanał z ogłoszeniami')
                 .addChannelOption(option => {
                     return option 
-                    .setName('channel')
+                    .setName('kanal')
                     .setDescription('Wybierz kanał na który zostanie wysłana wiadomość')
                     .setRequired(true)
                 })
                 .addStringOption(option => {
                     return option 
-                    .setName('announcetext')
+                    .setName('tekst')
                     .setDescription('Wpisz wiadomość która zostanie wysłana na podany wcześniej kanał')
                     .setRequired(true)
                 }),
@@ -37,25 +37,25 @@ const slashRegister = async () => {
                 .setDescription('Wyślij wiadomość na kanał z banami')
                 .addChannelOption(option => {
                     return option 
-                    .setName('channel')
+                    .setName('kanal')
                     .setDescription('Wybierz kanał na który zostanie wysłana wiadomość')
                     .setRequired(true)
                 })
                 .addUserOption(option => {
                     return option
-                    .setName('user')
+                    .setName('discord')
                     .setDescription('Wybierz użytkownika który został zbanowany')
                     .setRequired(true)
                 })
                 .addStringOption(option => {
                     return option
-                    .setName('nicktext')
+                    .setName('nick')
                     .setDescription('Wpisz nick gracza')
                     .setRequired(true)
                 })
                 .addStringOption(option => {
                     return option
-                    .setName('bantext')
+                    .setName('notatka')
                     .setDescription('Wpisz powód bana')
                     .setRequired(true)
                 }),
@@ -67,19 +67,19 @@ const slashRegister = async () => {
                 .setDescription('Wyślij wiadomość na kanał z unbanami')
                 .addChannelOption(option => {
                     return option 
-                    .setName('channel')
+                    .setName('kanal')
                     .setDescription('Wybierz kanał na który zostanie wysłana wiadomość')
                     .setRequired(true)
                 })
                 .addUserOption(option => {
                     return option
-                    .setName('user')
+                    .setName('discord')
                     .setDescription('Wybierz użytkownika który został zbanowany')
                     .setRequired(true)
                 })
                 .addStringOption(option => {
                     return option
-                    .setName('nicktext')
+                    .setName('nick')
                     .setDescription('Wpisz nick gracza')
                     .setRequired(true)
                 }),
@@ -91,19 +91,19 @@ const slashRegister = async () => {
                 .setDescription('Utwórz ankietę')
                 .addChannelOption(option => {
                     return option 
-                    .setName('channel')
+                    .setName('kanal')
                     .setDescription('Wybierz kanał na którym zostanie utworzona ankieta')
                     .setRequired(true)
                 })
                 .addStringOption(option => { 
                     return option
-                    .setName('ankiettitletext')
+                    .setName('tytul')
                     .setDescription('Wpisz tytuł ankiety')
                     .setRequired(true)
                 })
                 .addStringOption(option => { 
                     return option
-                    .setName('ankietsubtext')
+                    .setName('tekst')
                     .setDescription('Wpisz tekst ankiety')
                     .setRequired(true)
                 }),

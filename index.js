@@ -29,8 +29,8 @@ bot.on("interactionCreate", async (interaction) => {
   //=================================================================================================//
   
   if(interaction.commandName === "sendannounce") {
-    const textReceived = interaction.options.getString("announcetext");
-    const Channel = bot.channels.cache.get(interaction.options.getChannel("channel").id); 
+    const textReceived = interaction.options.getString("tekst");
+    const Channel = bot.channels.cache.get(interaction.options.getChannel("kanal").id); 
 
     if (Channel) {
       Channel.send(textReceived);
@@ -40,21 +40,21 @@ bot.on("interactionCreate", async (interaction) => {
   //=================================================================================================//
 
   if(interaction.commandName === "ban") {
-    const Channel = bot.channels.cache.get(interaction.options.getChannel("channel").id); 
+    const Channel = bot.channels.cache.get(interaction.options.getChannel("kanal").id); 
 
     if (Channel) {
       const admin = interaction.user.tag;
-      const banneddc = interaction.options.getUser("user");
-      const bannednick = interaction.options.getString("nicktext");
-      const note = interaction.options.getString("bantext");
+      const banneddc = interaction.options.getUser("discord");
+      const bannednick = interaction.options.getString("nick");
+      const note = interaction.options.getString("notatka");
 
       const Embed = new Discord.EmbedBuilder()
       .setColor('#FF0000')
       .setTitle('Osoba Zbanowana!')
 
-      .setAuthor({ name: 'Kwadratowa Pandemia', iconURL: 'https://imgur.com/a/bJOCLuq' })
+      .setAuthor({ name: 'Kwadratowa Pandemia', iconURL: 'https://cdn.discordapp.com/attachments/1218542014367400006/1255964374636560434/server-icon.png?ex=667f0b79&is=667db9f9&hm=ab89e9c825063966abfd4ca531652e2a91d23359d9e1104759c21036fa5e04bf&' })
       .setDescription('Przykro nam, że zakończyło się to banem.')
-      .setThumbnail('https://imgur.com/a/bJOCLuq')
+      .setThumbnail('https://cdn.discordapp.com/attachments/1218542014367400006/1255964374636560434/server-icon.png?ex=667f0b79&is=667db9f9&hm=ab89e9c825063966abfd4ca531652e2a91d23359d9e1104759c21036fa5e04bf&')
       .addFields(
         { name: 'Administraotr Banujący', value: admin, inline: true },
         { name: '\u200B', value: '\u200B' },
@@ -63,7 +63,7 @@ bot.on("interactionCreate", async (interaction) => {
         { name: 'Notatka administratora', value: note, inline: true },
       )
       .setTimestamp()
-      .setFooter({ text: 'Kwadratowa Pandemia Bot', iconURL: 'https://imgur.com/a/bJOCLuq' });
+      .setFooter({ text: 'Kwadratowa Pandemia Bot', iconURL: 'https://cdn.discordapp.com/attachments/1218542014367400006/1255964374636560434/server-icon.png?ex=667f0b79&is=667db9f9&hm=ab89e9c825063966abfd4ca531652e2a91d23359d9e1104759c21036fa5e04bf&' });
 
       Channel.send({ embeds: [Embed] });
       
@@ -75,30 +75,30 @@ bot.on("interactionCreate", async (interaction) => {
   //=================================================================================================//
 
   if(interaction.commandName === "unban") {
-    const Channel = bot.channels.cache.get(interaction.options.getChannel("channel").id); 
+    const Channel = bot.channels.cache.get(interaction.options.getChannel("kanal").id); 
 
     if (Channel) {
-      const unbanneddc = interaction.options.getUser("user");
-      const unbannednick = interaction.options.getString("nicktext");
+      const unbanneddc = interaction.options.getUser("discord");
+      const unbannednick = interaction.options.getString("nick");
 
       const Embed = new Discord.EmbedBuilder()
       .setColor('#36FF00')
       .setTitle('Osoba odbanowana!')
 
-      .setAuthor({ name: 'Kwadratowa Pandemia', iconURL: 'https://imgur.com/a/bJOCLuq' })
+      .setAuthor({ name: 'Kwadratowa Pandemia', iconURL: 'https://cdn.discordapp.com/attachments/1218542014367400006/1255964374636560434/server-icon.png?ex=667f0b79&is=667db9f9&hm=ab89e9c825063966abfd4ca531652e2a91d23359d9e1104759c21036fa5e04bf&' })
       .setDescription('Cieszymy się z twojego powrotu.')
-      .setThumbnail('https://imgur.com/a/bJOCLuq')
+      .setThumbnail('https://cdn.discordapp.com/attachments/1218542014367400006/1255964374636560434/server-icon.png?ex=667f0b79&is=667db9f9&hm=ab89e9c825063966abfd4ca531652e2a91d23359d9e1104759c21036fa5e04bf&')
       .addFields(
         { name: '\u200B', value: '\u200B' },
         { name: 'Osoba odbanowana', value: unbanneddc.tag, inline: true },
         { name: 'Nick osoby odbanowanej', value: unbannednick, inline: true },
       )
       .setTimestamp()
-      .setFooter({ text: 'Kwadratowa Pandemia Bot', iconURL: 'https://imgur.com/a/bJOCLuq' });
+      .setFooter({ text: 'Kwadratowa Pandemia Bot', iconURL: 'https://cdn.discordapp.com/attachments/1218542014367400006/1255964374636560434/server-icon.png?ex=667f0b79&is=667db9f9&hm=ab89e9c825063966abfd4ca531652e2a91d23359d9e1104759c21036fa5e04bf&' });
 
       Channel.send({ embeds: [Embed] });
 
-      const member = interaction.guild.members.cache.get(banneddc.id)
+      const member = interaction.guild.members.cache.get(unbanneddc.id)
       member.roles.remove(process.env['bannedRoleID']);
     }
   }
@@ -106,22 +106,22 @@ bot.on("interactionCreate", async (interaction) => {
   //=================================================================================================//
 
   if(interaction.commandName === "ankieta") {
-    const Channel = bot.channels.cache.get(interaction.options.getChannel("channel").id); 
+    const Channel = bot.channels.cache.get(interaction.options.getChannel("kanal").id); 
 
     if (Channel) {
-      const title = interaction.options.getString("nicktext");
-      const subtext = interaction.options.getString("nicktext");
+      const title = interaction.options.getString("tytul");
+      const subtext = interaction.options.getString("tekst");
 
       const Embed = new Discord.EmbedBuilder()
       .setColor('#FFB200')
       .setTitle(title)
 
-      .setAuthor({ name: 'Kwadratowa Pandemia', iconURL: 'https://imgur.com/a/bJOCLuq' })
+      .setAuthor({ name: 'Kwadratowa Pandemia', iconURL: 'https://cdn.discordapp.com/attachments/1218542014367400006/1255964374636560434/server-icon.png?ex=667f0b79&is=667db9f9&hm=ab89e9c825063966abfd4ca531652e2a91d23359d9e1104759c21036fa5e04bf&' })
       .setDescription(subtext)
-      .setThumbnail('https://imgur.com/a/bJOCLuq')
+      .setThumbnail('https://cdn.discordapp.com/attachments/1218542014367400006/1255964374636560434/server-icon.png?ex=667f0b79&is=667db9f9&hm=ab89e9c825063966abfd4ca531652e2a91d23359d9e1104759c21036fa5e04bf&')
 
       .setTimestamp()
-      .setFooter({ text: 'Kwadratowa Pandemia Bot', iconURL: 'https://imgur.com/a/bJOCLuq' });
+      .setFooter({ text: 'Kwadratowa Pandemia Bot', iconURL: 'https://cdn.discordapp.com/attachments/1218542014367400006/1255964374636560434/server-icon.png?ex=667f0b79&is=667db9f9&hm=ab89e9c825063966abfd4ca531652e2a91d23359d9e1104759c21036fa5e04bf&' });
 
       Channel.send({ embeds: [Embed] }).then(messageReaction => {
         messageReaction.react("✅");

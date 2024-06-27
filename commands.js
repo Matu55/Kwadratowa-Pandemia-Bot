@@ -12,39 +12,39 @@ const slashRegister = async () => {
         await rest.put(Discord.Routes.applicationGuildCommands(botID, serverID), {
             body: [
                 new Discord.SlashCommandBuilder()
-                .setName('SendAnnounce')
+                .setName('sendannounce')
                 .setDescription('Wyślij wiadomość na kanał z ogłoszeniami')
-                .addStringOption((option) => option.setName('AnnounceText').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z ogłoszeniami').setRequired(true)),
+                .addStringOption((option) => option.setName('announcetext').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z ogłoszeniami').setRequired(true)),
 
                 new Discord.SlashCommandBuilder()
-                .setName('SendInfo')
+                .setName('sendinfo')
                 .setDescription('Wyślij wiadomość na kanał z informacjami')
-                .addStringOption((option) => option.setName('InfoText').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z informacjami').setRequired(true)),
+                .addStringOption((option) => option.setName('infotext').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z informacjami').setRequired(true)),
 
                 new Discord.SlashCommandBuilder()
-                .setName('SendChangelog')
+                .setName('sendchangelog')
                 .setDescription('Wyślij wiadomość na kanał z changelogiem')
-                .addStringOption((option) => option.setName('changelogText').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z changelogiem').setRequired(true)),
+                .addStringOption((option) => option.setName('changelogtext').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z changelogiem').setRequired(true)),
                 
                 new Discord.SlashCommandBuilder()
-                .setName('SendBan')
+                .setName('sendban')
                 .setDescription('Wyślij wiadomość na kanał z banami')
-                .addStringOption((option) => option.setName('BanText').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z banami').setRequired(true)),
+                .addStringOption((option) => option.setName('bantext').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z banami').setRequired(true)),
 
                 new Discord.SlashCommandBuilder()
-                .setName('SendUnban')
+                .setName('sendunban')
                 .setDescription('Wyślij wiadomość na kanał z unbanami')
-                .addStringOption((option) => option.setName('UnBanText').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z unbanami').setRequired(true)),
+                .addStringOption((option) => option.setName('unbantext').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z unbanami').setRequired(true)),
 
                 new Discord.SlashCommandBuilder()
-                .setName('SendEvent')
+                .setName('sendevent')
                 .setDescription('Wyślij wiadomość na kanał z eventami')
-                .addStringOption((option) => option.setName('EventText').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z eventami').setRequired(true)),
+                .addStringOption((option) => option.setName('eventtext').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z eventami').setRequired(true)),
 
                 new Discord.SlashCommandBuilder()
-                .setName('SendWhitelist')
+                .setName('sendwhitelist')
                 .setDescription('Wyślij wiadomość na kanał whitelist')
-                .addStringOption((option) => option.setName('WhitelistText').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z whitelist').setRequired(true)),
+                .addStringOption((option) => option.setName('whitelisttext').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z whitelist').setRequired(true)),
             ],
         });
         console.log('Komendy zostały utworzone!');

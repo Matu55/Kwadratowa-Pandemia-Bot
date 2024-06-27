@@ -35,8 +35,8 @@ client.on("interactionCreate", async (interaction) => {
   if(interaction.isCommand()) {
     if(interaction.channel.id === adminChannelID) {
 
-      if(interaction.commandName === "SendAnnounce") {
-        const textReceived = interaction.options.getString("AnnounceText");
+      if(interaction.commandName === "sendannounce") {
+        const textReceived = interaction.options.getString("announcetext");
         const announceChannel = client.channels.cache.get(announceChannelID); 
 
         if (announceChannel) {
@@ -45,8 +45,8 @@ client.on("interactionCreate", async (interaction) => {
       }
 
 
-      if(interaction.commandName === "SendInfo") {
-        const textReceived = interaction.options.getString("InfoText");
+      if(interaction.commandName === "sendinfo") {
+        const textReceived = interaction.options.getString("infotext");
         const infoChannel = client.channels.cache.get(infoChannelID); 
 
         if (infoChannel) {
@@ -54,8 +54,8 @@ client.on("interactionCreate", async (interaction) => {
         }
       }
 
-      if(interaction.commandName === "SendChangelog") {
-        const textReceived = interaction.options.getString("changelogText");
+      if(interaction.commandName === "sendchangelog") {
+        const textReceived = interaction.options.getString("changelogtext");
         const changelogChannel = client.channels.cache.get(changelogChannelID); 
 
         if (changelogChannel) {
@@ -64,8 +64,8 @@ client.on("interactionCreate", async (interaction) => {
       }
 
 
-      if(interaction.commandName === "SendBan") {
-        const textReceived = interaction.options.getString("BanText");
+      if(interaction.commandName === "sendban") {
+        const textReceived = interaction.options.getString("bantext");
         const banChannel = client.channels.cache.get(bansChannelID); 
 
         if (banChannel) {
@@ -73,8 +73,8 @@ client.on("interactionCreate", async (interaction) => {
         }
       }
 
-      if(interaction.commandName === "SendUnban") {
-        const textReceived = interaction.options.getString("InfoText");
+      if(interaction.commandName === "sendunban") {
+        const textReceived = interaction.options.getString("unbantext");
         const unbanChannel = client.channels.cache.get(unbansChannelID); 
 
         if (unbanChannel) {
@@ -82,8 +82,8 @@ client.on("interactionCreate", async (interaction) => {
         }
       }
 
-      if(interaction.commandName === "SendEvent") {
-        const textReceived = interaction.options.getString("changelogText");
+      if(interaction.commandName === "sendevent") {
+        const textReceived = interaction.options.getString("eventtext");
         const eventChannel = client.channels.cache.get(eventsChannelID); 
 
         if (eventChannel) {
@@ -92,8 +92,8 @@ client.on("interactionCreate", async (interaction) => {
       }
 
 
-      if(interaction.commandName === "SendWhitelist") {
-        const textReceived = interaction.options.getString("WhitelistText");
+      if(interaction.commandName === "sendwhitelist") {
+        const textReceived = interaction.options.getString("whitelisttext");
         const whitelistChannel = client.channels.cache.get(whitelistChannelID); 
 
         if (whitelistChannel) {

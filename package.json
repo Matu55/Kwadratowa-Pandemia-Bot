@@ -1,6 +1,6 @@
 {
   "name": "nodejs",
-  "version": "1.0.0",
+  "version": "1.2.5",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^13.17.1",
+    "@types/node": "^18.0.6",
+    "discord.js": "^14.15.3",
     "express": "^4.19.2"
   }
 }

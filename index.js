@@ -9,9 +9,9 @@ app.get("/", (req, res) => {
   res.send("Hello World! I'm info bot made for Kwadratowa Pandemia");
 });
 
-const { Client, GatewayIntentBits, Partials } = require('discord.js');
+const Discord = require('discord.js');
 
-const client = new Client({ intents: [ GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages ]})
+const client = new Discord.Client({ intents: [ Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.GuildMessages ]})
 const commands = require("./commands.js")
 
 const adminChannelID = process.env['adminChannelID'];
@@ -25,6 +25,10 @@ const whitelistChannelID = process.env['whitelistChannelID'];
 
 client.on("ready", () => {
   console.log("Bot jest gotowy!");
+
+  if (commands) {
+    console.log("Komendy wczytane")
+  }
 })
 
 client.on("interactionCreate", async (interaction) => {
@@ -32,7 +36,7 @@ client.on("interactionCreate", async (interaction) => {
     if(interaction.channel.id === adminChannelID) {
 
       if(interaction.commandName === "SendAnnounce") {
-        const textReceived = interaction.options.getString("AnnounceWiadomość");
+        const textReceived = interaction.options.getString("AnnounceText");
         const announceChannel = client.channels.cache.get(announceChannelID); 
 
         if (announceChannel) {
@@ -42,7 +46,7 @@ client.on("interactionCreate", async (interaction) => {
 
 
       if(interaction.commandName === "SendInfo") {
-        const textReceived = interaction.options.getString("InfoWiadomość");
+        const textReceived = interaction.options.getString("InfoText");
         const infoChannel = client.channels.cache.get(infoChannelID); 
 
         if (infoChannel) {
@@ -51,7 +55,7 @@ client.on("interactionCreate", async (interaction) => {
       }
 
       if(interaction.commandName === "SendChangelog") {
-        const textReceived = interaction.options.getString("changelogWiadomość");
+        const textReceived = interaction.options.getString("changelogText");
         const changelogChannel = client.channels.cache.get(changelogChannelID); 
 
         if (changelogChannel) {
@@ -61,7 +65,7 @@ client.on("interactionCreate", async (interaction) => {
 
 
       if(interaction.commandName === "SendBan") {
-        const textReceived = interaction.options.getString("BanWiadomość");
+        const textReceived = interaction.options.getString("BanText");
         const banChannel = client.channels.cache.get(bansChannelID); 
 
         if (banChannel) {
@@ -70,7 +74,7 @@ client.on("interactionCreate", async (interaction) => {
       }
 
       if(interaction.commandName === "SendUnban") {
-        const textReceived = interaction.options.getString("InfoWiadomość");
+        const textReceived = interaction.options.getString("InfoText");
         const unbanChannel = client.channels.cache.get(unbansChannelID); 
 
         if (unbanChannel) {
@@ -79,7 +83,7 @@ client.on("interactionCreate", async (interaction) => {
       }
 
       if(interaction.commandName === "SendEvent") {
-        const textReceived = interaction.options.getString("changelogWiadomość");
+        const textReceived = interaction.options.getString("changelogText");
         const eventChannel = client.channels.cache.get(eventsChannelID); 
 
         if (eventChannel) {
@@ -89,7 +93,7 @@ client.on("interactionCreate", async (interaction) => {
 
 
       if(interaction.commandName === "SendWhitelist") {
-        const textReceived = interaction.options.getString("WhitelistWiadomość");
+        const textReceived = interaction.options.getString("WhitelistText");
         const whitelistChannel = client.channels.cache.get(whitelistChannelID); 
 
         if (whitelistChannel) {

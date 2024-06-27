@@ -6,7 +6,7 @@ app.listen(3000, () => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hello World! This is info bot made for Kwadratowa Pandemia");
+  res.send("Hello World! I'm info bot made for Kwadratowa Pandemia");
 });
 
 const Discord = require("discord.js");
@@ -19,68 +19,82 @@ const changelogChannelID = process.env['changelogChannelID'];
 const bansChannelID = process.env['bansChannelID'];
 const unbansChannelID = process.env['unbansChannelID'];
 const eventsChannelID = process.env['eventsChannelID'];
+const whitelistChannelID = process.env['whitelistChannelID'];
 
 client.on("ready", () => {
   console.log("Bot jest gotowy!");
 })
 
-client.on("messageCreate", (message) => {
-  if (message.author.bot) return;
+client.on("interactionCreate", async (interaction) => {
+  if(interaction.isCommand()) {
+    if(message.channel.id === adminChannelID) {
 
-  if (message.content.startsWith("/SendAnnounce") && message.channel.id === adminChannelID) {
-    const announceChannel = client.channels.cache.get(announceChannelID); 
+      if(interaction.commandName === "SendAnnounce") {
+        const textReceived = interaction.options.getString("AnnounceWiadomość")
+        const announceChannel = client.channels.cache.get(announceChannelID); 
 
-    if (announceChannel) {
-      announceChannel.send(message.content.slice(13));
-      message.delete();
+        if (announceChannel) {
+          announceChannel.send(textReceived);
+        }
+      }
+
+
+      if(interaction.commandName === "SendInfo") {
+        const textReceived = interaction.options.getString("InfoWiadomość")
+        const infoChannel = client.channels.cache.get(infoChannelID); 
+
+        if (infoChannel) {
+          infoChannel.send(textReceived);
+        }
+      }
+
+      if(interaction.commandName === "SendChangelog") {
+        const textReceived = interaction.options.getString("changelogWiadomość")
+        const changelogChannel = client.channels.cache.get(changelogChannelID); 
+
+        if (changelogChannel) {
+          changelogChannel.send(textReceived);
+        }
+      }
+
+
+      if(interaction.commandName === "SendBan") {
+        const textReceived = interaction.options.getString("BanWiadomość")
+        const banChannel = client.channels.cache.get(bansChannelID); 
+
+        if (banChannel) {
+          banChannel.send(textReceived);
+        }
+      }
+
+      if(interaction.commandName === "SendUnban") {
+        const textReceived = interaction.options.getString("InfoWiadomość")
+        const unbanChannel = client.channels.cache.get(unbansChannelID); 
+
+        if (unbanChannel) {
+          unbanChannel.send(textReceived);
+        }
+      }
+
+      if(interaction.commandName === "SendEvent") {
+        const textReceived = interaction.options.getString("changelogWiadomość")
+        const eventChannel = client.channels.cache.get(eventsChannelID); 
+
+        if (eventChannel) {
+          eventChannel.send(textReceived);
+        }
+      }
+
+
+      if(interaction.commandName === "SendWhitelist") {
+        const textReceived = interaction.options.getString("WhitelistWiadomość")
+        const whitelistChannel = client.channels.cache.get(whitelistChannelID); 
+
+        if (whitelistChannel) {
+          whitelistChannel.send(textReceived);
+        }
+      }
     }
   }
-
-  if (message.content.startsWith("/SendInfo") && message.channel.id === adminChannelID) {
-    const infoChannel = client.channels.cache.get(infoChannelID); 
-
-    if (infoChannel) {
-      infoChannel.send(message.content.slice(9));
-      message.delete();
-    }
-  }
-
-  if (message.content.startsWith("/SendChangelog") && message.channel.id === adminChannelID) {
-    const changelogChannel = client.channels.cache.get(changelogChannelID); 
-
-    if (changelogChannel) {
-      changelogChannel.send(message.content.slice(14));
-      message.delete();
-    }
-  }
-
-  if (message.content.startsWith("/SendBan") && message.channel.id === adminChannelID) {
-    const banChannel = client.channels.cache.get(bansChannelID); 
-
-    if (banChannel) {
-      banChannel.send(message.content.slice(8));
-      message.delete();
-    }
-  }
-
-  if (message.content.startsWith("/SendUnban") && message.channel.id === adminChannelID) {
-    const unbanChannel = client.channels.cache.get(unbansChannelID); 
-
-    if (unbanChannel) {
-      unbanChannel.send(message.content.slice(10));
-      message.delete();
-    }
-  }
-
-  if (message.content.startsWith("/SendEvent") && message.channel.id === adminChannelID) {
-    const eventChannel = client.channels.cache.get(eventsChannelID); 
-
-    if (eventChannel) {
-      eventChannel.send(message.content.slice(10));
-      message.delete();
-    }
-  }
-});
-
-
+})
 client.login(process.env['token']);

@@ -1,1 +1,1 @@
-**Pandemia RP Info Bot**
+**Kwadratowa Pandemia Bot**

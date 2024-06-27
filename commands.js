@@ -11,40 +11,100 @@ const slashRegister = async () => {
 
         await rest.put(Discord.Routes.applicationGuildCommands(botID, serverID), {
             body: [
+
+                //=================================================================================================//
+
                 new Discord.SlashCommandBuilder()
                 .setName('sendannounce')
                 .setDescription('Wyślij wiadomość na kanał z ogłoszeniami')
-                .addStringOption((option) => option.setName('announcetext').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z ogłoszeniami').setRequired(true)),
+                .addChannelOption(option => {
+                    return option 
+                    .setName('channel')
+                    .setDescription('Wybierz kanał na który zostanie wysłana wiadomość')
+                    .setRequired(true)
+                })
+                .addStringOption(option => {
+                    return option 
+                    .setName('announcetext')
+                    .setDescription('Wpisz wiadomość która zostanie wysłana na podany wcześniej kanał')
+                    .setRequired(true)
+                }),
+
+                //=================================================================================================//
 
                 new Discord.SlashCommandBuilder()
-                .setName('sendinfo')
-                .setDescription('Wyślij wiadomość na kanał z informacjami')
-                .addStringOption((option) => option.setName('infotext').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z informacjami').setRequired(true)),
-
-                new Discord.SlashCommandBuilder()
-                .setName('sendchangelog')
-                .setDescription('Wyślij wiadomość na kanał z changelogiem')
-                .addStringOption((option) => option.setName('changelogtext').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z changelogiem').setRequired(true)),
-                
-                new Discord.SlashCommandBuilder()
-                .setName('sendban')
+                .setName('ban')
                 .setDescription('Wyślij wiadomość na kanał z banami')
-                .addStringOption((option) => option.setName('bantext').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z banami').setRequired(true)),
+                .addChannelOption(option => {
+                    return option 
+                    .setName('channel')
+                    .setDescription('Wybierz kanał na który zostanie wysłana wiadomość')
+                    .setRequired(true)
+                })
+                .addUserOption(option => {
+                    return option
+                    .setName('user')
+                    .setDescription('Wybierz użytkownika który został zbanowany')
+                })
+                .addStringOption(option => {
+                    return option
+                    .setName('nicktext')
+                    .setDescription('Wpisz nick gracza')
+                    .setRequired(true)
+                })
+                .addStringOption(option => {
+                    return option
+                    .setName('bantext')
+                    .setDescription('Wpisz powód bana')
+                    .setRequired(true)
+                }),
+
+                //=================================================================================================//
 
                 new Discord.SlashCommandBuilder()
-                .setName('sendunban')
+                .setName('unban')
                 .setDescription('Wyślij wiadomość na kanał z unbanami')
-                .addStringOption((option) => option.setName('unbantext').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z unbanami').setRequired(true)),
+                .addChannelOption(option => {
+                    return option 
+                    .setName('channel')
+                    .setDescription('Wybierz kanał na który zostanie wysłana wiadomość')
+                    .setRequired(true)
+                })
+                .addUserOption(option => {
+                    return option
+                    .setName('user')
+                    .setDescription('Wybierz użytkownika który został zbanowany')
+                })
+                .addStringOption(option => {
+                    return option
+                    .setName('nicktext')
+                    .setDescription('Wpisz nick gracza')
+                    .setRequired(true)
+                }),
+
+                //=================================================================================================//
 
                 new Discord.SlashCommandBuilder()
-                .setName('sendevent')
-                .setDescription('Wyślij wiadomość na kanał z eventami')
-                .addStringOption((option) => option.setName('eventtext').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z eventami').setRequired(true)),
-
-                new Discord.SlashCommandBuilder()
-                .setName('sendwhitelist')
-                .setDescription('Wyślij wiadomość na kanał whitelist')
-                .addStringOption((option) => option.setName('whitelisttext').setDescription('Wpisz wiadomość która zostanie wysłana na kanał z whitelist').setRequired(true)),
+                .setName('ankieta')
+                .setDescription('Utwórz ankietę')
+                .addChannelOption(option => {
+                    return option 
+                    .setName('channel')
+                    .setDescription('Wybierz kanał na którym zostanie utworzona ankieta')
+                    .setRequired(true)
+                })
+                .addStringOption(option => { 
+                    return option
+                    .setName('ankiettitletext')
+                    .setDescription('Wpisz tytuł ankiety')
+                    .setRequired(true)
+                })
+                .addStringOption(option => { 
+                    return option
+                    .setName('ankietsubtext')
+                    .setDescription('Wpisz tekst ankiety')
+                    .setRequired(true)
+                }),
             ],
         });
         console.log('Komendy zostały utworzone!');

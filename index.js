@@ -11,97 +11,124 @@ app.get("/", (req, res) => {
 
 const Discord = require('discord.js');
 
-const client = new Discord.Client({ intents: [ Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.GuildMessages ]})
+const bot = new Discord.Client({ intents: [ Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.GuildMessages ], partials: [Discord.Partials.Message, Discord.Partials.Channel, Discord.Partials.Reaction] })
+
 const commands = require("./commands.js")
 
-const adminChannelID = process.env['adminChannelID'];
-const announceChannelID = process.env['announceChannelID'];
-const infoChannelID = process.env['infoChannelID'];
-const changelogChannelID = process.env['changelogChannelID'];
-const bansChannelID = process.env['bansChannelID'];
-const unbansChannelID = process.env['unbansChannelID'];
-const eventsChannelID = process.env['eventsChannelID'];
-const whitelistChannelID = process.env['whitelistChannelID'];
-
-client.on("ready", () => {
+bot.on("ready", () => {
   console.log("Bot jest gotowy!");
 
   if (commands) {
-    console.log("Komendy wczytane")
+    console.log("Plik z komendami wczytany // sprawdź czy nie ma żadnych błędą wyżej w konsoli")
   }
 })
 
-client.on("interactionCreate", async (interaction) => {
-  if(interaction.isCommand()) {
-    if(interaction.channel.id === adminChannelID) {
+bot.on("interactionCreate", async (interaction) => {
+  if (!interaction.isCommand()) return false;
 
-      if(interaction.commandName === "sendannounce") {
-        const textReceived = interaction.options.getString("announcetext");
-        const announceChannel = client.channels.cache.get(announceChannelID); 
+  //=================================================================================================//
+  
+  if(interaction.commandName === "sendannounce") {
+    const textReceived = interaction.options.getString("announcetext");
+    const Channel = bot.channels.cache.get(interaction.options.getChannel("channel").id); 
 
-        if (announceChannel) {
-          announceChannel.send(textReceived);
-        }
-      }
+    if (Channel) {
+      Channel.send(textReceived);
+    }
+  }
 
+  //=================================================================================================//
 
-      if(interaction.commandName === "sendinfo") {
-        const textReceived = interaction.options.getString("infotext");
-        const infoChannel = client.channels.cache.get(infoChannelID); 
+  if(interaction.commandName === "ban") {
+    const Channel = bot.channels.cache.get(interaction.options.getChannel("channel").id); 
 
-        if (infoChannel) {
-          infoChannel.send(textReceived);
-        }
-      }
+    if (Channel) {
+      const admin = interaction.user.tag;
+      const banneddc = interaction.options.getUser("user");
+      const bannednick = interaction.options.getString("nicktext");
+      const note = interaction.options.getString("bantext");
 
-      if(interaction.commandName === "sendchangelog") {
-        const textReceived = interaction.options.getString("changelogtext");
-        const changelogChannel = client.channels.cache.get(changelogChannelID); 
+      const Embed = new Discord.EmbedBuilder()
+      .setColor('#FF0000')
+      .setTitle('Osoba Zbanowana!')
 
-        if (changelogChannel) {
-          changelogChannel.send(textReceived);
-        }
-      }
+      .setAuthor({ name: 'Kwadratowa Pandemia', iconURL: 'https://imgur.com/a/bJOCLuq' })
+      .setDescription('Przykro nam, że zakończyło się to banem.')
+      .setThumbnail('https://imgur.com/a/bJOCLuq')
+      .addFields(
+        { name: 'Administraotr Banujący', value: admin, inline: true },
+        { name: '\u200B', value: '\u200B' },
+        { name: 'Osoba Zbanowana', value: banneddc.tag, inline: true },
+        { name: 'Nick osoby zbanowanej', value: bannednick, inline: true },
+        { name: 'Notatka administratora', value: note, inline: true },
+      )
+      .setTimestamp()
+      .setFooter({ text: 'Kwadratowa Pandemia Bot', iconURL: 'https://imgur.com/a/bJOCLuq' });
 
+      Channel.send({ embeds: [Embed] });
+      
+      const member = interaction.guild.members.cache.get(banneddc.id)
+      member.roles.add(process.env['bannedRoleID']);
+    }
+  }
 
-      if(interaction.commandName === "sendban") {
-        const textReceived = interaction.options.getString("bantext");
-        const banChannel = client.channels.cache.get(bansChannelID); 
+  //=================================================================================================//
 
-        if (banChannel) {
-          banChannel.send(textReceived);
-        }
-      }
+  if(interaction.commandName === "unban") {
+    const Channel = bot.channels.cache.get(interaction.options.getChannel("channel").id); 
 
-      if(interaction.commandName === "sendunban") {
-        const textReceived = interaction.options.getString("unbantext");
-        const unbanChannel = client.channels.cache.get(unbansChannelID); 
+    if (Channel) {
+      const unbanneddc = interaction.options.getUser("user");
+      const unbannednick = interaction.options.getString("nicktext");
 
-        if (unbanChannel) {
-          unbanChannel.send(textReceived);
-        }
-      }
+      const Embed = new Discord.EmbedBuilder()
+      .setColor('#36FF00')
+      .setTitle('Osoba odbanowana!')
 
-      if(interaction.commandName === "sendevent") {
-        const textReceived = interaction.options.getString("eventtext");
-        const eventChannel = client.channels.cache.get(eventsChannelID); 
+      .setAuthor({ name: 'Kwadratowa Pandemia', iconURL: 'https://imgur.com/a/bJOCLuq' })
+      .setDescription('Cieszymy się z twojego powrotu.')
+      .setThumbnail('https://imgur.com/a/bJOCLuq')
+      .addFields(
+        { name: '\u200B', value: '\u200B' },
+        { name: 'Osoba odbanowana', value: unbanneddc.tag, inline: true },
+        { name: 'Nick osoby odbanowanej', value: unbannednick, inline: true },
+      )
+      .setTimestamp()
+      .setFooter({ text: 'Kwadratowa Pandemia Bot', iconURL: 'https://imgur.com/a/bJOCLuq' });
 
-        if (eventChannel) {
-          eventChannel.send(textReceived);
-        }
-      }
+      Channel.send({ embeds: [Embed] });
 
+      const member = interaction.guild.members.cache.get(banneddc.id)
+      member.roles.remove(process.env['bannedRoleID']);
+    }
+  }
 
-      if(interaction.commandName === "sendwhitelist") {
-        const textReceived = interaction.options.getString("whitelisttext");
-        const whitelistChannel = client.channels.cache.get(whitelistChannelID); 
+  //=================================================================================================//
 
-        if (whitelistChannel) {
-          whitelistChannel.send(textReceived);
-        }
-      }
+  if(interaction.commandName === "ankieta") {
+    const Channel = bot.channels.cache.get(interaction.options.getChannel("channel").id); 
+
+    if (Channel) {
+      const title = interaction.options.getString("nicktext");
+      const subtext = interaction.options.getString("nicktext");
+
+      const Embed = new Discord.EmbedBuilder()
+      .setColor('#FFB200')
+      .setTitle(title)
+
+      .setAuthor({ name: 'Kwadratowa Pandemia', iconURL: 'https://imgur.com/a/bJOCLuq' })
+      .setDescription(subtext)
+      .setThumbnail('https://imgur.com/a/bJOCLuq')
+
+      .setTimestamp()
+      .setFooter({ text: 'Kwadratowa Pandemia Bot', iconURL: 'https://imgur.com/a/bJOCLuq' });
+
+      Channel.send({ embeds: [Embed] }).then(messageReaction => {
+        messageReaction.react("✅");
+        messageReaction.react("❌");
+      });
     }
   }
 })
 
-client.login(process.env['token']);
+bot.login(process.env['token']);

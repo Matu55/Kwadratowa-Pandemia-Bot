@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
 
 const Discord = require("discord.js");
 
-const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
+const client = new Discord.Client({ intents: [ GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages ]})
 const commands = require("./commands.js")
 
 const adminChannelID = process.env['adminChannelID'];

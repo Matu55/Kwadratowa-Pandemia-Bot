@@ -1,6 +1,5 @@
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v10');
-const { SlashCommandBuilder } = require('discord.js');
+const Discord = require('discord.js')
+const { REST, Routes, SlashCommandBuilder } = Discord
 
 const botID = process.env['botID'];
 const serverID = process.env['serverID'];

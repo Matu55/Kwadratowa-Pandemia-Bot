@@ -27,10 +27,10 @@ client.on("ready", () => {
 
 client.on("interactionCreate", async (interaction) => {
   if(interaction.isCommand()) {
-    if(message.channel.id === adminChannelID) {
+    if(interaction.channel.id === adminChannelID) {
 
       if(interaction.commandName === "SendAnnounce") {
-        const textReceived = interaction.options.getString("AnnounceWiadomość")
+        const textReceived = interaction.options.getString("AnnounceWiadomość");
         const announceChannel = client.channels.cache.get(announceChannelID); 
 
         if (announceChannel) {
@@ -40,7 +40,7 @@ client.on("interactionCreate", async (interaction) => {
 
 
       if(interaction.commandName === "SendInfo") {
-        const textReceived = interaction.options.getString("InfoWiadomość")
+        const textReceived = interaction.options.getString("InfoWiadomość");
         const infoChannel = client.channels.cache.get(infoChannelID); 
 
         if (infoChannel) {
@@ -49,7 +49,7 @@ client.on("interactionCreate", async (interaction) => {
       }
 
       if(interaction.commandName === "SendChangelog") {
-        const textReceived = interaction.options.getString("changelogWiadomość")
+        const textReceived = interaction.options.getString("changelogWiadomość");
         const changelogChannel = client.channels.cache.get(changelogChannelID); 
 
         if (changelogChannel) {
@@ -59,7 +59,7 @@ client.on("interactionCreate", async (interaction) => {
 
 
       if(interaction.commandName === "SendBan") {
-        const textReceived = interaction.options.getString("BanWiadomość")
+        const textReceived = interaction.options.getString("BanWiadomość");
         const banChannel = client.channels.cache.get(bansChannelID); 
 
         if (banChannel) {
@@ -68,7 +68,7 @@ client.on("interactionCreate", async (interaction) => {
       }
 
       if(interaction.commandName === "SendUnban") {
-        const textReceived = interaction.options.getString("InfoWiadomość")
+        const textReceived = interaction.options.getString("InfoWiadomość");
         const unbanChannel = client.channels.cache.get(unbansChannelID); 
 
         if (unbanChannel) {
@@ -77,7 +77,7 @@ client.on("interactionCreate", async (interaction) => {
       }
 
       if(interaction.commandName === "SendEvent") {
-        const textReceived = interaction.options.getString("changelogWiadomość")
+        const textReceived = interaction.options.getString("changelogWiadomość");
         const eventChannel = client.channels.cache.get(eventsChannelID); 
 
         if (eventChannel) {
@@ -87,7 +87,7 @@ client.on("interactionCreate", async (interaction) => {
 
 
       if(interaction.commandName === "SendWhitelist") {
-        const textReceived = interaction.options.getString("WhitelistWiadomość")
+        const textReceived = interaction.options.getString("WhitelistWiadomość");
         const whitelistChannel = client.channels.cache.get(whitelistChannelID); 
 
         if (whitelistChannel) {

@@ -1,12 +1,14 @@
 const { REST, Routes, SlashCommandBuilder } = require("discord.js")
 
-const botID = process.env['botID']
-const serverID = process.env['serverID']
-const botToken = process.env['token']
+const botID = process.env['botID'];
+const serverID = process.env['serverID'];
+const botToken = process.env['token'];
 
-const rest = new REST().setToken(botToken)
+const rest = new REST().setToken(botToken);
 const slashRegister = async () => {
     try {
+        console.log("Próbowanie utworzenia komend!");
+
         await rest.put(Routes.applicationGuildCommands(botID, serverID), {
             body: [
                 new SlashCommandBuilder()
@@ -77,10 +79,12 @@ const slashRegister = async () => {
                     .setName("WhitelistWiadomość")
                     .setDescription("Wpisz wiadomość która zostanie wysłana na kanał z whitelist")
                     .setRequired(true)
-                })
-            ]
-        })
+                }),
+            ],
+        });
+        console.log("Komendy zostały utworzone!");
     } catch (error) {
+        console.log("Wystąpił błąd podczas tworzenia komend!");
         console.error(error)
     }
 }

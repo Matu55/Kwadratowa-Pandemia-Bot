@@ -27,9 +27,8 @@ bot.on("messageCreate", (message) => {
   if (message.author.bot) return;
 
   if (message.content.startsWith("/SendAnnounce")) {
-    const rolePermission = message.member.roles.cache.some(role => roles.includes(role.name.toLowerCase()));
-
-    if(rolePermission) {
+    const AdminRoles = ['991400730030243900', '991400869654450356', '999414625101697135'];
+    if (AdminRoles.some(role => message.member.roles.cache.get(role))) {
       const Channel = bot.channels.cache.get(message.mentions.channels.id); 
 
       if (Channel) {

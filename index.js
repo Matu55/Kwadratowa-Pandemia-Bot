@@ -26,21 +26,12 @@ bot.on("ready", () => {
 bot.on("messageCreate", (message) => {
   if (message.author.bot) return;
 
-  if (message.content.startsWith("/SendAnnounce")) {
-    const AdminRoles = ['991400730030243900', '991400869654450356', '999414625101697135'];
-    if (AdminRoles.some(role => message.member.roles.cache.get(role))) {
-      const Channel = bot.channels.cache.get(message.mentions.channels.id); 
+  if (message.content.startsWith("/SendAnnounce") && message.channel.id === "1100451423658971166") {
+    const announceChannel = client.channels.cache.get("1100451423658971166"); 
 
-      if (Channel) {
-        Channel.send(args.slice(1).join(" "));
-        message.delete();
-      }
-    } else {
-      const Channel = bot.channels.cache.get(announceChannelID); 
-
-      if (Channel) {
-        Channel.send("Nie masz do tego wymaganej rangi!");
-      }
+    if (announceChannel) {
+      announceChannel.send(message.content.slice(13));
+      message.delete();
     }
   }
 });

@@ -26,8 +26,8 @@ client.on("ready", () => {
 client.on("messageCreate", (message) => {
   if (message.author.bot) return;
 
-  if (message.content.startsWith("/SendAnnounce") && message.channel.id === "1100451423658971166") {
-    const announceChannel = client.channels.cache.get("1255665284396879872"); 
+  if (message.content.startsWith("/SendAnnounce") && message.channel.id === 1100451423658971166) {
+    const announceChannel = client.channels.cache.get(1255665284396879872); 
 
     if (announceChannel) {
       announceChannel.send(message.content.slice(13));

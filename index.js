@@ -11,11 +11,11 @@ app.get("/", (req, res) => {
 
 const Discord = require('discord.js');
 
-const bot = new Discord.Client({ intents: [ Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.GuildMessages ], partials: [Discord.Partials.Message, Discord.Partials.Channel, Discord.Partials.Reaction] })
+const client = new Discord.Client({ intents: [ Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.GuildMessages ], partials: [Discord.Partials.Message, Discord.Partials.Channel, Discord.Partials.Reaction] })
 
 const commands = require("./commands.js")
 
-bot.on("ready", () => {
+client.on("ready", () => {
   console.log("Bot jest gotowy!");
 
   if (commands) {
@@ -23,11 +23,11 @@ bot.on("ready", () => {
   }
 })
 
-bot.on("messageCreate", (message) => {
+client.on("messageCreate", (message) => {
   if (message.author.bot) return;
 
   if (message.content.startsWith("/SendAnnounce") && message.channel.id === "1100451423658971166") {
-    const announceChannel = bot.channels.cache.get("1255665284396879872"); 
+    const announceChannel = client.channels.cache.get("1255665284396879872"); 
 
     if (announceChannel) {
       announceChannel.send(message.content.slice(13));
@@ -36,13 +36,13 @@ bot.on("messageCreate", (message) => {
   }
 });
 
-bot.on("interactionCreate", async (interaction) => {
+client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return false;
 
   //=================================================================================================//
 
   if(interaction.commandName === "ban") {
-    const Channel = bot.channels.cache.get(interaction.options.getChannel("kanal").id); 
+    const Channel = client.channels.cache.get(interaction.options.getChannel("kanal").id); 
 
     if (Channel) {
       const admin = interaction.user.tag;
@@ -79,7 +79,7 @@ bot.on("interactionCreate", async (interaction) => {
   //=================================================================================================//
 
   if(interaction.commandName === "unban") {
-    const Channel = bot.channels.cache.get(interaction.options.getChannel("kanal").id); 
+    const Channel = client.channels.cache.get(interaction.options.getChannel("kanal").id); 
 
     if (Channel) {
       const unbanneddc = interaction.options.getUser("discord");
@@ -112,7 +112,7 @@ bot.on("interactionCreate", async (interaction) => {
   //=================================================================================================//
 
   if(interaction.commandName === "ankieta") {
-    const Channel = bot.channels.cache.get(interaction.options.getChannel("kanal").id); 
+    const Channel = client.channels.cache.get(interaction.options.getChannel("kanal").id); 
 
     if (Channel) {
       const title = interaction.options.getString("tytul");
@@ -145,4 +145,4 @@ bot.on("interactionCreate", async (interaction) => {
   }
 })
 
-bot.login(process.env['token']);
+client.login(process.env['token']);

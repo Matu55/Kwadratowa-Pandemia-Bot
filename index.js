@@ -15,6 +15,9 @@ const client = new Discord.Client({ intents: [ Discord.GatewayIntentBits.Guilds,
 
 const commands = require("./commands.js")
 
+const adminChannelID = process.env['adminChannelID'];
+const announceChannelID = process.env['announceChannelID'];
+
 client.on("ready", () => {
   console.log("Bot jest gotowy!");
 
@@ -26,8 +29,8 @@ client.on("ready", () => {
 client.on("messageCreate", (message) => {
   if (message.author.bot) return;
 
-  if (message.content.startsWith("/SendAnnounce") && message.channel.id === 1100451423658971166) {
-    const announceChannel = client.channels.cache.get(1255665284396879872); 
+  if (message.content.startsWith("/SendAnnounce") && message.channel.id === adminChannelID) {
+    const announceChannel = client.channels.cache.get(announceChannelID); 
 
     if (announceChannel) {
       announceChannel.send(message.content.slice(13));

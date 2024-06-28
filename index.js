@@ -23,19 +23,31 @@ bot.on("ready", () => {
   }
 })
 
-bot.on("interactionCreate", async (interaction) => {
-  if (!interaction.isCommand()) return false;
+bot.on("messageCreate", (message) => {
+  if (message.author.bot) return;
 
-  //=================================================================================================//
-  
-  if(interaction.commandName === "sendannounce") {
-    const textReceived = interaction.options.getString("tekst");
-    const Channel = bot.channels.cache.get(interaction.options.getChannel("kanal").id); 
+  if (message.content.startsWith("/SendAnnounce")) {
+    const rolePermission = message.member.roles.cache.some(role => roles.includes(role.name.toLowerCase()));
 
-    if (Channel) {
-      Channel.send(textReceived);
+    if(rolePermission) {
+      const Channel = bot.channels.cache.get(message.mentions.channels.id); 
+
+      if (Channel) {
+        Channel.send(args.slice(1).join(" "));
+        message.delete();
+      }
+    } else {
+      const Channel = bot.channels.cache.get(announceChannelID); 
+
+      if (Channel) {
+        Channel.send("Nie masz do tego wymaganej rangi!");
+      }
     }
   }
+});
+
+bot.on("interactionCreate", async (interaction) => {
+  if (!interaction.isCommand()) return false;
 
   //=================================================================================================//
 
@@ -69,6 +81,8 @@ bot.on("interactionCreate", async (interaction) => {
       
       const member = interaction.guild.members.cache.get(banneddc.id)
       member.roles.add(process.env['bannedRoleID']);
+
+      interaction.reply({ content: "Pomyślnie zbanowano użytkownika D:", ephemeral: true })
     }
   }
 
@@ -100,6 +114,8 @@ bot.on("interactionCreate", async (interaction) => {
 
       const member = interaction.guild.members.cache.get(unbanneddc.id)
       member.roles.remove(process.env['bannedRoleID']);
+
+      interaction.reply({ content: "Pomyślnie odbanowano użytkownika :D", ephemeral: true })
     }
   }
 
@@ -127,6 +143,14 @@ bot.on("interactionCreate", async (interaction) => {
         messageReaction.react("✅");
         messageReaction.react("❌");
       });
+
+      interaction.reply({ content: "Pomyślnie Utworzono ankietę :D", ephemeral: true })
+    } else {
+      interaction.reply({ content: "**BŁĄD!** Nie udało się utworzyć ankiety być może podałeś niewłaściwy kanał lub wystąpił błąd bota!", ephemeral: true })
+    }
+
+    if(interaction.commandName === "help") {
+      interaction.reply({ content: "**POMOC** // Komendy bota to: /SendAnnounce {ID Kanału} {wiadomość}, /ban {Discord}, {Nick}, {Powód}, /unban {Discord}, {Nick}, /ankieta {Tytuł}, {Podtytuł} // Wyjaśnienie komendą /SendAnnounce wysyłasz wiadomość którą sam napiszesz na kanał który sam wybierzesz, komendą /ban wysyłasz informację na discorda, że gracz został zbanowany i dodajesz mu rangę 'banned' która blokuje całego discorda Kwadratowej Pandemi, Komendą /unban usuwasz osobie range 'banned', a komendą /ankieta tworzysz ankietę na podanym kanale o podanym tytule i podtytule // komenda /help nie jest tu uwzględniona bo musiałeś/aś jej użyć by to zobaczyć :D", ephemeral: true })
     }
   }
 })

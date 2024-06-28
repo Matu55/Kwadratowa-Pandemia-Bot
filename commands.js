@@ -15,24 +15,6 @@ const slashRegister = async () => {
                 //=================================================================================================//
 
                 new Discord.SlashCommandBuilder()
-                .setName('sendannounce')
-                .setDescription('Wyślij wiadomość na kanał z ogłoszeniami')
-                .addChannelOption(option => {
-                    return option 
-                    .setName('kanal')
-                    .setDescription('Wybierz kanał na który zostanie wysłana wiadomość')
-                    .setRequired(true)
-                })
-                .addStringOption(option => {
-                    return option 
-                    .setName('tekst')
-                    .setDescription('Wpisz wiadomość która zostanie wysłana na podany wcześniej kanał')
-                    .setRequired(true)
-                }),
-
-                //=================================================================================================//
-
-                new Discord.SlashCommandBuilder()
                 .setName('ban')
                 .setDescription('Wyślij wiadomość na kanał z banami')
                 .addChannelOption(option => {
@@ -44,7 +26,7 @@ const slashRegister = async () => {
                 .addUserOption(option => {
                     return option
                     .setName('discord')
-                    .setDescription('Wybierz użytkownika który został zbanowany')
+                    .setDescription('Wybierz użytkownika który został zbanowany lub jeżeli go nie ma na discordzie wybierz swój nick')
                     .setRequired(true)
                 })
                 .addStringOption(option => {
@@ -107,6 +89,12 @@ const slashRegister = async () => {
                     .setDescription('Wpisz tekst ankiety')
                     .setRequired(true)
                 }),
+
+                //=================================================================================================//
+
+                new Discord.SlashCommandBuilder()
+                .setName('help')
+                .setDescription('Wyjaśnia komendy bota')
             ],
         });
         console.log('Komendy zostały utworzone!');

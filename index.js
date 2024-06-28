@@ -27,11 +27,15 @@ bot.on("messageCreate", (message) => {
   if (message.author.bot) return;
 
   if (message.content.startsWith("/SendAnnounce") && message.channel.id === "1100451423658971166") {
-    const announceChannel = client.channels.cache.get("1100451423658971166"); 
+    const AdminRoles = ['991400730030243900', '991400869654450356', '999414625101697135'];
 
-    if (announceChannel) {
-      announceChannel.send(message.content.slice(13));
-      message.delete();
+    if (AdminRoles.some(role => message.member.roles.cache.get(role))) {
+      const Channel = bot.channels.cache.get(message.mentions.channels.id); 
+
+      if (Channel) {
+        announceChannel.send(message.content.slice(13));
+        message.delete();
+      }
     }
   }
 });

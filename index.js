@@ -73,6 +73,14 @@ client.on("interactionCreate", async (interaction) => {
       Channel.send({ embeds: [Embed] });
       
       const member = interaction.guild.members.cache.get(banneddc.id)
+
+      member.roles.remove(process.env['graczRoleID']);
+      member.roles.remove(process.env['graczRoleID']);
+      member.roles.remove(process.env['graczRoleID']);
+      member.roles.remove(process.env['graczRoleID']);
+      member.roles.remove(process.env['graczRoleID']);
+      member.roles.remove(process.env['graczRoleID']);
+      
       member.roles.add(process.env['bannedRoleID']);
 
       interaction.reply({ content: "Pomyślnie zbanowano użytkownika D:", ephemeral: true })
@@ -107,6 +115,7 @@ client.on("interactionCreate", async (interaction) => {
 
       const member = interaction.guild.members.cache.get(unbanneddc.id)
       member.roles.remove(process.env['bannedRoleID']);
+      member.roles.add(process.env['graczRoleID']);
 
       interaction.reply({ content: "Pomyślnie odbanowano użytkownika :D", ephemeral: true })
     }
@@ -134,6 +143,7 @@ client.on("interactionCreate", async (interaction) => {
 
       Channel.send({ embeds: [Embed] }).then(messageReaction => {
         messageReaction.react("✅");
+        messageReaction.react("➖");
         messageReaction.react("❌");
       });
 

@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
 
 const Discord = require('discord.js');
 
-const client = new Discord.Client({ intents: [ Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.GuildMessages ], partials: [Discord.Partials.Message, Discord.Partials.Channel, Discord.Partials.Reaction] })
+const client = new Discord.Client({ intents: [ Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.GuildMessages, Discord.GatewayIntentBits.MessageContent, Discord.GatewayIntentBits.GuildMembers ], partials: [Discord.Partials.Message, Discord.Partials.Channel, Discord.Partials.Reaction] })
 
 const commands = require("./commands.js")
 
@@ -75,12 +75,11 @@ client.on("interactionCreate", async (interaction) => {
       const member = interaction.guild.members.cache.get(banneddc.id)
 
       member.roles.remove(process.env['graczRoleID']);
+      member.roles.remove(process.env['modRoleID']);
+      member.roles.remove(process.env['vipRoleID']);
+      member.roles.remove(process.env['helperRoleID']);
       member.roles.remove(process.env['graczRoleID']);
-      member.roles.remove(process.env['graczRoleID']);
-      member.roles.remove(process.env['graczRoleID']);
-      member.roles.remove(process.env['graczRoleID']);
-      member.roles.remove(process.env['graczRoleID']);
-      
+
       member.roles.add(process.env['bannedRoleID']);
 
       interaction.reply({ content: "Pomyślnie zbanowano użytkownika D:", ephemeral: true })

@@ -61,7 +61,7 @@ client.on("interactionCreate", async (interaction) => {
       .setDescription('Przykro nam, że zakończyło się to banem.')
       .setThumbnail('https://cdn.discordapp.com/attachments/1218542014367400006/1255964374636560434/server-icon.png?ex=667f0b79&is=667db9f9&hm=ab89e9c825063966abfd4ca531652e2a91d23359d9e1104759c21036fa5e04bf&')
       .addFields(
-        { name: 'Administraotr Banujący', value: admin, inline: true },
+        { name: 'Administrator Banujący', value: admin, inline: true },
         { name: '\u200B', value: '\u200B' },
         { name: 'Osoba Zbanowana', value: banneddc.tag, inline: true },
         { name: 'Nick osoby zbanowanej', value: bannednick, inline: true },
